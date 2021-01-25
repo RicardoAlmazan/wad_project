@@ -30,6 +30,7 @@ import { HistoryComponent } from './history/history.component';
 import { LayoutComponent } from './layout/layout.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { FormsService } from './services/forms.service';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { LoginComponent } from './components/login/login.component';
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true
-    }
+    },
+    FormsService
   ],
   bootstrap: [AppComponent]
 })

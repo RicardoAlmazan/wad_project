@@ -22,6 +22,22 @@ create table Users (
     foreign key (userType) references UserType(id)
 );
 
+create table Estados(
+	id int auto_increment primary key,
+    abrev varchar(4) not null,
+    nombre varchar(128) not null,
+    activo tinyint not null default 1
+);
+
+create table Municipios(
+	id int auto_increment primary key,
+    abrev varchar(4) not null,
+    nombre varchar(128) not null,
+    estado int not null,
+    activo tinyint not null default 1,
+    foreign key (estado) references Estados(id)
+);
+
 insert into Users(nombres, apellidos, email, contrasenia, userType) values
 ('Ricardo', 'Almazán', 'ricardo.almazan.trejo@iikt.com.mx', md5('contrasenia'),1);
 
@@ -40,3 +56,5 @@ begin
 	end if;
 end;//
 delimiter //
+
+call validateUsr('ricardo.almazan.trejo@iikt.com.mx', 'contrasenia');

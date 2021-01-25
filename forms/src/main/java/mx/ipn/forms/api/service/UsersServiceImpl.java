@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import mx.ipn.forms.api.dao.UsersRepository;
 import mx.ipn.forms.api.exception.DuplicateResourceException;
+import mx.ipn.forms.api.exception.ResourceNotFoundException;
 import mx.ipn.forms.api.model.Users;
 
 @Service
@@ -17,7 +18,11 @@ public class UsersServiceImpl implements UsersService {
 
   @Override
   public Users validatePassword(Users usuario) {
-    return usersRepository.validatePassword(usuario.getEmail(), usuario.getContrasenia());
+    try {
+      return usersRepository.validatePassword(usuario.getEmail(), usuario.getContrasenia());
+    } catch (Exception e) {
+      throw new ResourceNotFoundException("User", "email", usuario.getEmail());
+    }
   }
 
   @Override
