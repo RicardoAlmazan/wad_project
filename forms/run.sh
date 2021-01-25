@@ -1,0 +1,1 @@
+mvn spring-boot:run -Dspring.config.location="./application.properties" -Duser.timezone=America/Mexico_City
