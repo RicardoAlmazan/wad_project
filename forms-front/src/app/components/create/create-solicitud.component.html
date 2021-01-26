@@ -1,0 +1,141 @@
+<div class="formulario">
+  <mat-card class="card-title">
+    <mat-card-title class="title-center">Registro de reportes</mat-card-title>
+  </mat-card>
+  <div class="separator"></div>
+  <mat-card class="card-form">
+    <mat-card-content>
+      <div class="spinner" *ngIf="loading">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+      <form [formGroup]="form">
+        <mat-card class="card-subtitle">
+          <p class="title-left">Datos del solicitante</p>
+        </mat-card>
+        <div class="separator"></div>
+        <div class="card-form">
+          <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px grid"
+            fxLayoutGap.xs="0" class="container">
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Nombre(s) del solicitante</mat-label>
+                <input matInput placeholder="Teclee su(s) nombre(s)" formControlName="nombresSolicitante" readonly
+                  maxlength="128">
+                <!-- <mat-error *ngIf="this.form.controls.nombres.hasError('required')">
+                  Este campo es requerido</mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Apellido(s) del solicitante</mat-label>
+                <input matInput placeholder="Teclee su(s) apellido(s)" formControlName="apellidosSolicitante" readonly
+                  maxlength="128">
+                <!-- <mat-error *ngIf="this.form.controls.apellidos.hasError('required')">
+                  Este campo es requerido</mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxFlex="0 1 100%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" class="card-actions">
+              <mat-slide-toggle (change)="changeMismaPersona($event);">
+                <span class="field-label">
+                  ¿El servicio a reportar está registrado a su nombre?
+                </span>
+              </mat-slide-toggle>
+              <div class="separator"></div>
+            </div>
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" *ngIf="!this.mismaPersona">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Nombre(s) del due&ntilde;o del servicio</mat-label>
+                <input matInput placeholder="Teclee su(s) nombre(s)" formControlName="nombres" maxlength="128">
+                <mat-error *ngIf="this.form.controls.nombres.hasError('required')">
+                  Este campo es requerido</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" *ngIf="!this.mismaPersona">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Apellido(s) del due&ntilde;o del servicio</mat-label>
+                <input matInput placeholder="Teclee su(s) apellido(s)" formControlName="apellidos" maxlength="128">
+                <mat-error *ngIf="this.form.controls.apellidos.hasError('required')">
+                  Este campo es requerido</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <mat-card class="card-subtitle">
+          <p class="title-left">Datos de la direcci&oacute;n</p>
+        </mat-card>
+        <div class="separator"></div>
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px grid" fxLayoutGap.xs="0"
+          class="container">
+          <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Estado</mat-label>
+              <mat-select placeholder="Selecciona un estado" formControlName="estado"
+                (selectionChange)="changeEstado($event.value)">
+                <mat-option *ngFor="let opcion of estados" [value]="opcion">
+                  {{ opcion.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.form.controls.estado.hasError('required')">
+                Este campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Municipio</mat-label>
+              <mat-select placeholder="Selecciona un municipio" formControlName="municipio">
+                <mat-option *ngFor="let opcion of municipios" [value]="opcion">
+                  {{ opcion.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.form.controls.municipio.hasError('required')">
+                Este campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="0 1 100%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%" *ngIf="!this.mismaPersona">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Direcci&oacute;n</mat-label>
+              <input matInput placeholder="Teclee su direcci&oacute;n" formControlName="direccion" maxlength="128">
+              <mat-error *ngIf="this.form.controls.direccion.hasError('required')">
+                Este campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-card class="card-subtitle">
+          <p class="title-left">Motivos del reporte</p>
+        </mat-card>
+        <div class="separator"></div>
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px grid" fxLayoutGap.xs="0"
+          class="container">
+          <div fxFlex="0 1 100%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Tipo de problema</mat-label>
+              <mat-select placeholder="Selecciona un tipo de problema" formControlName="tipoProblema">
+                <mat-option *ngFor="let opcion of tipoProblemas" [value]="opcion">
+                  {{ opcion.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.form.controls.tipoProblema.hasError('required')">
+                Este campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="0 1 100%" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Comentarios adicionales</mat-label>
+              <textarea matInput placeholder="Opcional: Puede agregar comentarios extra." formControlName="comentarios"
+                maxlength="1024"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="card-actions">
+      <div class="spinner" *ngIf="loading">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+      <button mat-raised-button routerLink="/login">Regresar</button>
+      &nbsp;
+      <button mat-raised-button color="primary" (click)="sendReport()"
+        [disabled]="this.form.invalid|| loading">Continuar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

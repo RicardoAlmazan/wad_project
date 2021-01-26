@@ -1,21 +1,100 @@
-<div class="content">
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+<div class="formulario">
+  <mat-card class="card-title">
+    <mat-card-title class="title-center">Registro de usuarios</mat-card-title>
+  </mat-card>
+  <div class="separator"></div>
+  <mat-card class="card-form">
     <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
+      <div class="spinner" *ngIf="loading">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+      <form [formGroup]="form">
+        <div class="card-form">
+          <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px grid"
+            fxLayoutGap.xs="0" class="container">
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Nombre(s)</mat-label>
+                <input matInput placeholder="Teclee su(s) nombre(s)" formControlName="nombres" maxlength="128">
+                <mat-error *ngIf="this.form.controls.nombres.hasError('required')">
+                  Este campo es requerido</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Apellido(s)</mat-label>
+                <input matInput placeholder="Teclee su(s) apellido(s)" formControlName="apellidos" maxlength="128">
+                <mat-error *ngIf="this.form.controls.apellidos.hasError('required')">
+                  Este campo es requerido</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Correo electr&oacute;nico</mat-label>
+                <input matInput placeholder="Teclee su correo electr&oacute;nico" formControlName="email"
+                  maxlength="128">
+                <mat-error *ngIf="this.form.controls.email.hasError('required')">
+                  Este campo es requerido</mat-error>
+                <mat-error *ngIf="this.form.controls.email.hasError('noFormato')">
+                  El correo electr&oacute;nico ingresado no cumple con el formato requerido. 
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Confirmaci&oacute;n de correo electr&oacute;nico</mat-label>
+                <input matInput placeholder="Teclee de nuevo su correo electr&oacute;nico" formControlName="emailConf"
+                  maxlength="128">
+                <mat-error *ngIf="this.form.controls.emailConf.hasError('required')">
+                  Este campo es requerido</mat-error>
+                <mat-error *ngIf="this.form.controls.emailConf.hasError('noFormato')">
+                  El correo electr&oacute;nico ingresado no cumple con el formato requerido. 
+                </mat-error>
+                <mat-error *ngIf="this.form.controls.emailConf.hasError('noFormato')">
+                  Los correos electr&oacute;nicos ingresados no coinciden. 
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Contrase&ntilde;a</mat-label>
+                <input matInput placeholder="Teclee su nueva contrase&ntilde;a" formControlName="password"
+                  [type]="hide ? 'password' : 'text'" maxlength="32">
+                <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="this.form.controls.password.hasError('required')">
+                  Este campo es requerido</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="0 1 calc(50% - 10px)" fxFlex.lt-md="100%" fxFlex.lt-sm="100%">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Confirmación de contrase&ntilde;a</mat-label>
+                <input matInput placeholder="Teclee de nuevo su contrase&ntilde;a" formControlName="passwordConf"
+                  [type]="hideConf ? 'password' : 'text'" maxlength="32">
+                <button type="button" mat-icon-button matSuffix (click)="hideConf = !hideConf"
+                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConf">
+                  <mat-icon>{{hideConf ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="this.form.controls.passwordConf.hasError('required')">
+                  Este campo es requerido</mat-error>
+                <mat-error *ngIf="this.form.controls.passwordConf.hasError('noCoinciden')">
+                  Las contrase&ntilde;as no coinciden. </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
+    <mat-card-actions class="card-actions">
+      <div class="spinner" *ngIf="loading">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+      <button mat-raised-button routerLink="/login">Regresar</button>
+      &nbsp;
+      <button mat-raised-button color="accent" (click)="registrar()"
+        [disabled]="this.form.invalid|| loading">Continuar</button>
     </mat-card-actions>
   </mat-card>
 </div>

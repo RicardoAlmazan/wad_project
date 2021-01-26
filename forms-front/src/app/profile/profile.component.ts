@@ -8,16 +8,16 @@ import { StorageutilService } from '../services/storageutil.service';
 })
 export class ProfileComponent implements OnInit {
 
-  historyCount = 0;
+  solicitudesCount = 0;
 
   constructor(private storageUtilService: StorageutilService) { }
 
   ngOnInit() {
-    this.updateHistoryCount();
+    this.updatesolicitudesCount();
   }
 
-  updateHistoryCount() {
-    this.historyCount = this.storageUtilService.getHistoryCount();
+  updatesolicitudesCount() {
+    this.solicitudesCount = 12;
   }
 
 

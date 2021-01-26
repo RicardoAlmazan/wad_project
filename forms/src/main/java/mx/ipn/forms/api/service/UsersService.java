@@ -6,5 +6,6 @@ public interface UsersService {
   
   Users validatePassword(Users usuario);
   Users registerUser(Users usr);
+  // String levantarReporte(String request);
 
 }

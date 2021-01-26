@@ -38,6 +38,32 @@ create table Municipios(
     foreign key (estado) references Estados(id)
 );
 
+create table TipoProblema(
+	id int auto_increment primary key,
+    descripcion nvarchar(128) not null
+);
+
+insert into TipoProblema(descripcion) values 
+('SIN SERVICIO'),
+('SERVICIO DEFICIENTE');
+
+create table Solicitud(
+	id int auto_increment primary key,
+    numeroSolicitud nvarchar(12) not null,
+    idSolicitante int not null,
+    nombresOwner nvarchar(128) not null,
+    apellidosOwner nvarchar(128) not null,
+    fechaSolicitud datetime not null,
+    tipoProblema int not null,
+    estado int not null,
+    municipio int not null,
+    direccion nvarchar(1024) not null,
+    comentarios nvarchar(1024),
+    foreign key (idSolicitante) references Users(id),
+    foreign key (estado) references Estados(id),
+    foreign key (municipio) references Municipios(id)
+);
+
 insert into Users(nombres, apellidos, email, contrasenia, userType) values
 ('Ricardo', 'Almazán', 'ricardo.almazan.trejo@iikt.com.mx', md5('contrasenia'),1);
 
@@ -58,3 +84,7 @@ end;//
 delimiter //
 
 call validateUsr('ricardo.almazan.trejo@iikt.com.mx', 'contrasenia');
+
+select * from Users;
+
+delete from Users where id = 3;

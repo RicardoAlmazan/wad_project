@@ -1,23 +1,41 @@
-<mat-card>
-  <mat-card-content>
-    <form [formGroup]="form">
-      <h2>Log In</h2>
-      <mat-error *ngIf="loginInvalid">
-        The username and password were not recognised
-      </mat-error>
-      <mat-form-field class="full-width-input">
-        <input matInput placeholder="Email" formControlName="username" required>
-        <mat-error>
-          Please provide a valid email address
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="full-width-input">
-        <input matInput type="password" placeholder="Password" formControlName="password" required>
-        <mat-error>
-          Please provide a valid password
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="login()">Login</button>
-    </form>
-  </mat-card-content>
-</mat-card>
+<div class="formulario">
+  <mat-card class="card-title">
+    <mat-card-title class="title-center">Iniciar sesi&oacute;n</mat-card-title>
+  </mat-card>
+  <div class="separator"></div>
+  <mat-card class="card-form">
+    <mat-card-content>
+      <div class="spinner" *ngIf="loading">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+      <form [formGroup]="form">
+        <div class="card-form">
+          <mat-error *ngIf="loginInvalid">
+            El usuario y/o la contrase&ntilde;a inv&aacute;lidos.
+          </mat-error>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Correo electr&oacute;nico</mat-label>
+            <input matInput placeholder="Teclee su correo electr&oacute;nico" formControlName="username"
+              maxlength="128">
+            <mat-error>
+              Por favor, teclea tu correo electr&oacute;nico.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Contrase&ntilde;a</mat-label>
+            <input matInput placeholder="Teclee su contrase&ntilde;a" formControlName="password"
+              [type]="hide ? 'password' : 'text'" maxlength="32">
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error>
+              Por favor, teclea tu contrase&ntilde;a.
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="login()">Iniciar sesi&oacute;n</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

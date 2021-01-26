@@ -6,6 +6,8 @@ import { HistoryComponent } from './history/history.component';
 import { LayoutComponent } from './layout/layout.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+import { CreateSolicitudComponent } from './components/create/create-solicitud.component';
 
 
 const routes: Routes = [
@@ -19,7 +21,17 @@ const routes: Routes = [
         component: CreateQrComponent
       },
       {
-        path: 'form',
+        path: 'crear-solicitud',
+        component: CreateSolicitudComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'home',
+        component: HomeComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'registro',
         component: RegisterComponent
       },
       {
